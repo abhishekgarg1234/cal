@@ -1,3 +1,31 @@
+
+var cc=function(){
+
+expr.addEventListener("keyup",function(){if (event.keyCode == 13){
+                        					cal();}
+						     else{
+						     		checkkey();}});
+one.addEventListener("click",function(){display(1);});
+two.addEventListener("click",function(){display(2);});
+three.addEventListener("click",function(){display(3);});
+four.addEventListener("click",function(){display(4);});
+five.addEventListener("click",function(){display(5);});
+six.addEventListener("click",function(){display(6);});
+seven.addEventListener("click",function(){display(7);});
+eight.addEventListener("click",function(){display(8);});
+nine.addEventListener("click",function(){display(9);});
+zero.addEventListener("click",function(){display(0);});
+mul.addEventListener("click",function(){display2("*");});
+div.addEventListener("click",function(){display2("/");});
+plus.addEventListener("click",function(){display2("+");});
+minus.addEventListener("click",function(){display2("-");});
+openb.addEventListener("click",function(){display2("(");});
+closeb.addEventListener("click",function(){display2(")");});
+equal.addEventListener("click",function(){cal();});
+clear.addEventListener("click",function(){display2("cl");});
+backspace.addEventListener("click",function(){display2("bk");});
+dot.addEventListener("click",function(){display2(".");});
+power.addEventListener("click",function(){display2("^");});
 //function to concatenate numbers
 function display(xxx){
 	var x = document.getElementById("expr");
@@ -23,6 +51,65 @@ switch(xxx){
 }
 
 
+
+
+
+//function to calculate the result
+function cal(){
+var x=document.getElementById("expr");
+var sp=x.value.split("");   //splitting the string
+var len=x.value.length;
+var arr=[];
+var tt=0;var j=0;var spi=0;
+if(sp[spi]=='.'){
+	if(isNaN(sp[spi+1]))
+	{spi++;}
+	else{
+	arr[j]=sp[spi].toString()+sp[spi+1].toString();
+	spi=spi+2;}
+}
+else{
+arr[j]=sp[spi];spi++;
+}
+//concatinating after splitting
+do{
+		if(!isNaN(sp[spi])){          //if element is a number
+			if(isNaN(sp[spi-1])){    //if previous element not a number
+				j++;
+				arr[j]=sp[spi];
+			}
+			else{	
+				arr[j]=arr[j].toString()+sp[spi].toString();
+			}
+		}
+		else if(sp[spi]=="."){     ///if element is a dot
+				if(isNaN(sp[spi-1])){
+				j++;
+				arr[j]=sp[spi].toString()+sp[spi+1].toString();
+				spi++;
+				}
+				else if(isNaN(sp[spi+1])){
+		
+				}
+				else{
+		
+				arr[j]=arr[j].toString()+sp[spi].toString()+sp[spi+1].toString();
+				spi++;
+				}
+		}
+		else{		//if element not a number
+			j++;
+			arr[j]=sp[spi];
+		}
+	spi++;
+}
+while(spi<len);
+var final=[];
+final=infixtopostfix(arr);
+x.value=x.value=postfix(final);
+}
+
+
 //function to check whether the key presses is valid or not
 function checkkey(e) {
 	var x = document.getElementById("expr");
@@ -38,38 +125,6 @@ function checkkey(e) {
 }
 
 
-//function to calculate the result
-function cal(){
-var x=document.getElementById("expr");
-var sp=x.value.split("");   //splitting the string
-var len=x.value.length;
-var arr=[];
-var tt=0;var j=0;var spi=0;
-arr[j]=sp[spi];spi++;
-//concatinating after splitting
-do{
-		if(!isNaN(sp[spi])){          //if element is a number
-			if(isNaN(sp[spi-1])){    //if previous element not a number
-				j++;
-				arr[j]=sp[spi];}
-			else
-			{	arr[j]=arr[j].toString()+sp[spi].toString();}
-		}
-		else if(sp[spi]=="."){     ///if element is a dot
-			arr[j]=arr[j].toString()+sp[spi].toString()+sp[spi+1].toString();
-			spi++;
-		}
-		else{		//if element not a number
-			j++;
-			arr[j]=sp[spi];
-			}
-	spi++;
-}
-while(spi<len);
-var final=[];
-final=infixtopostfix(arr);
-x.value=x.value=postfix(final);
-}
 // infix to postfix conversion
 function infixtopostfix(arr){
 var operator=[];var final=[];
@@ -173,3 +228,16 @@ i++;
 }
 return stack.pop();
 }
+}
+
+
+var tt=new cc();
+
+
+
+
+
+
+
+
+

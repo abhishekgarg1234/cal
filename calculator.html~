@@ -4,6 +4,8 @@
 <link rel="stylesheet" type="text/css" href="mystyle.css">
 </head>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
 <body>
 <div id="nav">
 <input type="text" id="expr" class="button"  autofocus>
